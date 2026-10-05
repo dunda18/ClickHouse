@@ -88,7 +88,7 @@ std::optional<LookupSetFromStorage> tryGetLookupSetFromTableExpression(const Que
         if (hasUnsupportedLookupModifiers(table_node->getTableExpressionModifiers()))
             return std::nullopt;
 
-        auto storage = std::dynamic_pointer_cast<MergeTreeData>(table_node->getStorage());
+        auto storage = castStorage<MergeTreeData>(table_node->getStorage(), DeferredTable::Load);
         if (!storage)
             return std::nullopt;
 
@@ -154,7 +154,7 @@ std::optional<LookupSetFromStorage> tryGetLookupSetFromTableExpression(const Que
     if (hasUnsupportedLookupModifiers(inner_table_node->getTableExpressionModifiers()))
         return std::nullopt;
 
-    auto storage = std::dynamic_pointer_cast<MergeTreeData>(inner_table_node->getStorage());
+    auto storage = castStorage<MergeTreeData>(inner_table_node->getStorage(), DeferredTable::Load);
     if (!storage)
         return std::nullopt;
 

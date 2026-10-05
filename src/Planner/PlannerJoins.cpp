@@ -1076,7 +1076,7 @@ PreparedJoinStorage tryGetLookupJoinStorage(
             || table_expression_modifiers->hasStream()))
         return {};
 
-    auto storage = std::dynamic_pointer_cast<MergeTreeData>(table_node->getStorage());
+    auto storage = castStorage<MergeTreeData>(table_node->getStorage(), DeferredTable::Load);
     if (!storage)
         return {};
 
